@@ -10,8 +10,12 @@ const burger = (props) => {
                 return <BurgerIngredient key={elKey + i} type={elKey} />;
             });
         })
-
-        console.log(transformedIngredients);
+        .reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+    if (transformedIngredients.length === 0) {
+        transformedIngredients = <p>Please add ingredients!</p>
+    }
 
     return(
         <div className={classes.Burger}>
