@@ -1,6 +1,5 @@
 import React from 'react'
 import classes from './Order.css'
-import { Z_BLOCK } from 'zlib';
 
 const order = (props) => {
     const ingredients = [];
