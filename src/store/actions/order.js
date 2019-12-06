@@ -38,5 +38,11 @@ export const purchaseBurger = (orderData) => {
             .catch(error => {
                 dispatch(purchaseBurgerFailure(error));
             });
+    };
+};
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
     }
 }
