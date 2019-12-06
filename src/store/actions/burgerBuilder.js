@@ -34,7 +34,7 @@ export const fetchIngredientsFailed = () => {
 //async action that returns the sync action with data from the async call
 export const initIngredients = () => {
     return dispatch => {
-        axios.get('https://burger-builder94.firebaseio.com/ingredients.json')
+        axios.get('/ingredients.json')
         .then(response => {
             dispatch(setIngredients(response.data));
         })
