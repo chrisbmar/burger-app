@@ -107,11 +107,11 @@ class Auth extends Component {
                <form onSubmit={(e) => e.preventDefault()}>
                     {form}
                     <Button 
-                        clicked={() => this.submitHandler('signup')}
-                        btnType="Success">SIGNUP</Button>
-                    <Button 
                         clicked={() => this.submitHandler('signin')}
                         btnType="Danger">SIGNIN</Button>
+                    <Button 
+                        clicked={() => this.submitHandler('signup')}
+                        btnType="Success">SIGNUP</Button>
                </form> 
             </div>
         );

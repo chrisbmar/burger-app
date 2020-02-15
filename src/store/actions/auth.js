@@ -32,7 +32,6 @@ export const logout = () => {
 }
 
 export const checkAuthTimeout = expirationInMilliseconds => {
-    console.log(expirationInMilliseconds);
     return dispatch => {
         setTimeout(() => {
             dispatch(logout());
@@ -67,7 +66,6 @@ export const auth = (email, password, requestType) => {
                 dispatch(checkAuthTimeout(response.data.expiresIn * 1000));
             })
             .catch(err => {
-                console.log(err.response);
                 dispatch(authFail(err.response.data.error));
             });
     };

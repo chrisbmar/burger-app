@@ -2,7 +2,6 @@
 
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
-import { useImperativeHandle } from 'react';
 
 //sync
 export const purchaseBurgerSuccess = (id, orderData) => {
@@ -76,7 +75,6 @@ export const fetchOrders = (token, userId) => {
         .then(res => {
             const fetchedOrders = [];
             for (let key in res.data) {
-                console.log(res.data[key]);
                 fetchedOrders.push({
                     ...res.data[key],
                     id: key
