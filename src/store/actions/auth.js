@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const authStart = () => {
   return {
-    type: actionTypes.AUTH_START
+    type: actionTypes.AUTH_START,
   };
 };
 
@@ -11,14 +11,14 @@ export const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
-    userId: userId
+    userId: userId,
   };
 };
 
-export const authFail = error => {
+export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
-    error: error
+    error: error,
   };
 };
 
@@ -27,12 +27,12 @@ export const logout = () => {
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("userId");
   return {
-    type: actionTypes.AUTH_LOGOUT
+    type: actionTypes.AUTH_LOGOUT,
   };
 };
 
-export const checkAuthTimeout = expirationInMilliseconds => {
-  return dispatch => {
+export const checkAuthTimeout = (expirationInMilliseconds) => {
+  return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
     }, expirationInMilliseconds);
@@ -40,12 +40,12 @@ export const checkAuthTimeout = expirationInMilliseconds => {
 };
 
 export const auth = (email, password, requestType) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(authStart());
     const authData = {
       email: email,
       password: password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
 
     //default URL for signup
@@ -59,7 +59,7 @@ export const auth = (email, password, requestType) => {
     }
     axios
       .post(`${url}${apiKey}`, authData)
-      .then(response => {
+      .then((response) => {
         const expirationDate =
           new Date().getTime() + response.data.expiresIn * 1000;
         localStorage.setItem("token", response.data.idToken);
@@ -68,21 +68,21 @@ export const auth = (email, password, requestType) => {
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn * 1000));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(authFail(err.response.data.error));
       });
   };
 };
 
-export const setAuthRedirectPath = path => {
+export const setAuthRedirectPath = (path) => {
   return {
     type: actionTypes.SET_AUTH_REDIRECT_PATH,
-    path: path
+    path: path,
   };
 };
 
 export const authCheckState = () => {
-  return dispatch => {
+  return (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
       const expirationDate = localStorage.getItem("expirationDate");
