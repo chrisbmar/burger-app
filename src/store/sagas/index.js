@@ -1,4 +1,4 @@
-import { takeEvery, all } from "redux-saga/effects";
+import { takeEvery, all, takeLatest } from "redux-saga/effects";
 
 import * as actionTypes from "../actions/actionTypes";
 import {
@@ -24,7 +24,7 @@ const burgerBuilderSagas = [
 ];
 
 const orderSagas = [
-  takeEvery(actionTypes.PURCHASE_BURGER_POST_REQUEST, purchaseBurgerSaga),
+  takeLatest(actionTypes.PURCHASE_BURGER_POST_REQUEST, purchaseBurgerSaga),
   takeEvery(actionTypes.FETCH_ORDERS_INIT, fetchOrdersSaga),
 ];
 
