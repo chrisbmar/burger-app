@@ -10,6 +10,8 @@ import {
 
 import { initIngredientsSaga } from "./burgerBuilder";
 
+import { purchaseBurgerSaga, fetchOrdersSaga } from "./order";
+
 const authSagas = [
   takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga),
   takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga),
@@ -21,6 +23,11 @@ const burgerBuilderSagas = [
   takeEvery(actionTypes.INIT_INGREDIENTS, initIngredientsSaga),
 ];
 
+const orderSagas = [
+  takeEvery(actionTypes.PURCHASE_BURGER_POST_REQUEST, purchaseBurgerSaga),
+  takeEvery(actionTypes.FETCH_ORDERS_INIT, fetchOrdersSaga),
+];
+
 export default function* rootSaga() {
-  yield all([...authSagas, ...burgerBuilderSagas]);
+  yield all([...authSagas, ...burgerBuilderSagas, ...orderSagas]);
 }
