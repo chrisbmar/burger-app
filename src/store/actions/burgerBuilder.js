@@ -1,19 +1,10 @@
 //actionCreators for building a burger
 import * as actionTypes from "./actionTypes";
 
-//sync action from returned saga reponse
-export const addIngredient = (name) => {
+//async action using a saga
+export const initIngredients = () => {
   return {
-    type: actionTypes.ADD_INGREDIENT,
-    ingredientName: name,
-  };
-};
-
-//sync action from returned saga reponse
-export const removeIngredient = (name) => {
-  return {
-    type: actionTypes.REMOVE_INGREDIENT,
-    ingredientName: name,
+    type: actionTypes.INIT_INGREDIENTS,
   };
 };
 
@@ -32,9 +23,18 @@ export const fetchIngredientsFailed = () => {
   };
 };
 
-//async action using a saga
-export const initIngredients = () => {
+//sync action from returned saga reponse
+export const addIngredient = (name) => {
   return {
-    type: actionTypes.INIT_INGREDIENTS,
+    type: actionTypes.ADD_INGREDIENT,
+    ingredientName: name,
+  };
+};
+
+//sync action from returned saga reponse
+export const removeIngredient = (name) => {
+  return {
+    type: actionTypes.REMOVE_INGREDIENT,
+    ingredientName: name,
   };
 };

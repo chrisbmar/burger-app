@@ -1,5 +1,14 @@
 import * as actionTypes from "./actionTypes";
 
+export const auth = (email, password, requestType) => {
+  return {
+    type: actionTypes.AUTH_USER,
+    email,
+    password,
+    requestType,
+  };
+};
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
@@ -33,6 +42,12 @@ export const logoutSuccess = () => {
   };
 };
 
+export const authCheckState = () => {
+  return {
+    type: actionTypes.AUTH_CHECK_STATE,
+  };
+};
+
 export const checkAuthTimeout = (expirationInMilliseconds) => {
   return {
     type: actionTypes.AUTH_CHECK_TIMEOUT,
@@ -40,24 +55,9 @@ export const checkAuthTimeout = (expirationInMilliseconds) => {
   };
 };
 
-export const auth = (email, password, requestType) => {
-  return {
-    type: actionTypes.AUTH_USER,
-    email,
-    password,
-    requestType,
-  };
-};
-
 export const setAuthRedirectPath = (path) => {
   return {
     type: actionTypes.SET_AUTH_REDIRECT_PATH,
     path: path,
-  };
-};
-
-export const authCheckState = () => {
-  return {
-    type: actionTypes.AUTH_CHECK_STATE,
   };
 };
