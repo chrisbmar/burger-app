@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 const logout = ({ onLogout }) => {
   useEffect(() => {
     onLogout();
-  }, []);
+  }, [onLogout]);
 
   return <Redirect to="/" />;
 };

@@ -9,7 +9,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 const orders = ({ onFetchOrders, token, userId, loading, ordersState }) => {
   useEffect(() => {
     onFetchOrders(token, userId);
-  }, []);
+  }, [onFetchOrders]);
 
   let orders = <Spinner />;
 
