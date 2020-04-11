@@ -3,20 +3,24 @@ import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import classes from "./Auth.css";
 import * as actions from "../../store/actions/index";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 import { updateObject, checkValidity } from "../../shared/utility";
 
-const auth = ({
-  buildingBurger,
-  onSetAuthRedirectPath,
-  authRedirectPath,
-  loading,
-  error,
-  isAuthenticated,
-  onAuth,
-}) => {
+const auth = () => {
+  const dispatch = useDispatch();
+  const onAuth = (email, password, requestType) =>
+    dispatch(actions.auth(email, password, requestType));
+  const onSetAuthRedirectPath = () =>
+    dispatch(actions.setAuthRedirectPath("/"));
+
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
+  const isAuthenticated = useSelector((state) => state.auth.token !== null);
+  const buildingBurger = useSelector((state) => state.burgerBuilder.building);
+  const authRedirectPath = useSelector((state) => state.auth.authRedirectPath);
+
   const [controls, setControls] = useState({
     email: {
       elementType: "input",
@@ -125,22 +129,4 @@ const auth = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    loading: state.auth.loading,
-    error: state.auth.error,
-    isAuthenticated: state.auth.token != null,
-    buildingBurger: state.burgerBuilder.building,
-    authRedirectPath: state.auth.authRedirectPath,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAuth: (email, password, requestType) =>
-      dispatch(actions.auth(email, password, requestType)),
-    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(auth);
+export default auth;

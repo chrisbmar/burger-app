@@ -1,11 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "./ContactData/ContactData";
 
-const checkout = ({ history, ings, purchased, match }) => {
+const checkout = ({ history, match }) => {
+  const ings = useSelector((state) => state.burgerBuilder.ingredients);
+  const purchased = useSelector((state) => state.order.purchased);
+
   const checkoutCancelledHandler = () => {
     history.goBack();
   };
@@ -32,11 +35,4 @@ const checkout = ({ history, ings, purchased, match }) => {
   return summary;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    ings: state.burgerBuilder.ingredients,
-    purchased: state.order.purchased,
-  };
-};
-
-export default connect(mapStateToProps)(checkout);
+export default checkout;

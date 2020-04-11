@@ -4,12 +4,22 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.css";
 import axios from "../../../axios-orders";
 import Input from "../../../components/UI/Input/Input";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
 import { updateObject, checkValidity } from "../../../shared/utility";
 
-const contactData = ({ ings, cost, userId, token, onOrderBurger, loading }) => {
+const contactData = () => {
+  const dispatch = useDispatch();
+  const onOrderBurger = (orderData, token) =>
+    dispatch(actions.purchaseBurger(orderData, token));
+
+  const ings = useSelector((state) => state.burgerBuilder.ingredients);
+  const cost = useSelector((state) => state.burgerBuilder.totalPrice);
+  const loading = useSelector((state) => state.order.loading);
+  const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userId);
+
   const [orderForm, setOrderForm] = useState({
     name: {
       elementType: "input",
@@ -175,24 +185,4 @@ const contactData = ({ ings, cost, userId, token, onOrderBurger, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    ings: state.burgerBuilder.ingredients,
-    cost: state.burgerBuilder.totalPrice,
-    loading: state.order.loading,
-    token: state.auth.token,
-    userId: state.auth.userId,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onOrderBurger: (orderData, token) =>
-      dispatch(actions.purchaseBurger(orderData, token)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withErrorHandler(contactData, axios));
+export default withErrorHandler(contactData, axios);
